@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
+import GifImage from '@lowkey/react-native-gif';
+import LottieView from 'lottie-react-native';
 
 // export AddButton component
 export default function AddButton() {
@@ -35,32 +37,32 @@ export default function AddButton() {
 
   const thermometerX = mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [-24, -100],
+    outputRange: [20, -50],
   });
 
   const thermometerY = mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [-50, -100],
+    outputRange: [0, -50],
   });
 
   const timeX = mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [-24, -24],
+    outputRange: [20, 10],
   });
 
   const timeY = mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [-50, -150],
+    outputRange: [0, -90],
   });
 
   const pulseX = mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [-24, 50],
+    outputRange: [20, 75],
   });
 
   const pulseY = mode.interpolate({
     inputRange: [0, 1],
-    outputRange: [-50, -100],
+    outputRange: [0, -50],
   });
 
   return (
@@ -72,7 +74,8 @@ export default function AddButton() {
           top: thermometerY,
         }}>
         <View style={styles.secondaryButton}>
-          <Feather name="thermometer" size={24} color="#FFF" />
+          {/* <Feather name="thermometer" size={24} color="#FFF" /> */}
+          <LottieView source={require('../assets/thermo.json')} autoPlay loop />
         </View>
       </Animated.View>
       <Animated.View
@@ -82,7 +85,12 @@ export default function AddButton() {
           top: timeY,
         }}>
         <View style={styles.secondaryButton}>
-          <Feather name="clock" size={24} color="#FFF" />
+          {/* <Feather name="clock" size={24} color="#FFF" /> */}
+          <LottieView
+            source={require('../assets/lf30_editor_hvfr5ggs.json')}
+            autoPlay
+            loop
+          />
         </View>
       </Animated.View>
       <Animated.View
@@ -92,7 +100,12 @@ export default function AddButton() {
           top: pulseY,
         }}>
         <View style={styles.secondaryButton}>
-          <Feather name="activity" size={24} color="#FFF" />
+          {/* <Feather name="activity" size={24} color="#FFF" /> */}
+          <LottieView
+            source={require('../assets/134-target-outline-edited.json')}
+            autoPlay
+            loop
+          />
         </View>
       </Animated.View>
       <Animated.View
@@ -104,7 +117,7 @@ export default function AddButton() {
                 {
                   rotate: mode.interpolate({
                     inputRange: [0, 1],
-                    outputRange: ['0deg', '45deg'],
+                    outputRange: ['0deg', '135deg'],
                   }),
                 },
               ],
