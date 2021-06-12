@@ -1,39 +1,71 @@
-import React, {useState} from 'react';
-import {Animated, View, Text, PanResponder} from 'react-native';
+import React from 'react';
+import {View} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+
+import {
+  JournalScreen,
+  MeasureScreen,
+  TreatmentScreen,
+  ProfileScreen,
+} from './app/screens';
+import AddButton from './app/components/AddButton';
+import Empty from './app/components/Empty';
+
+const TabNavigator = createBottomTabNavigator();
 
 export default function App() {
-  const pan = useState(new Animated.ValueXY())[0];
-
-  const panResponder = useState(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderGrant: () => {
-        pan.setOffset({
-          x: pan.x._value,
-          y: pan.y._value,
-        });
-      },
-      onPanResponderMove: Animated.event([null, {dx: pan.x, dy: pan.y}]),
-      onPanResponderRelease: () => {
-        pan.flattenOffset();
-      },
-    }),
-  )[0];
-
   return (
-    <View style={{flex: 1}}>
-      <Animated.View
-        style={[
-          {
-            width: 100,
-            height: 100,
-            borderRadius: 100 / 2,
-            backgroundColor: 'red',
-          },
-          pan.getLayout(),
-        ]}
-        {...panResponder.panHandlers}
-      />
-    </View>
+    <NavigationContainer>
+      <TabNavigator.Navigator
+        tabBarOptions={{
+          showLabel: false,
+        }}>
+        <TabNavigator.Screen
+          name="Journal"
+          component={JournalScreen}
+          options={{
+            tabBarIcon: ({color, size}) => (
+              <FontAwesome5 name="book-medical" size={24} color="#CDCCCE" />
+            ),
+          }}
+        />
+        <TabNavigator.Screen
+          name="Measures"
+          component={MeasureScreen}
+          options={{
+            tabBarIcon: ({color, size}) => (
+              <FontAwesome5 name="heartbeat" size={24} color="#CDCCCE" />
+            ),
+          }}
+        />
+        <TabNavigator.Screen
+          name="Add"
+          component={Empty}
+          options={{
+            tabBarIcon: ({color, size}) => <AddButton />,
+          }}
+        />
+        <TabNavigator.Screen
+          name="Treatment"
+          component={TreatmentScreen}
+          options={{
+            tabBarIcon: ({color, size}) => (
+              <FontAwesome5 name="band-aid" size={24} color="#CDCCCE" />
+            ),
+          }}
+        />
+        <TabNavigator.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            tabBarIcon: ({color, size}) => (
+              <FontAwesome5 name="user" size={24} color="#CDCCCE" />
+            ),
+          }}
+        />
+      </TabNavigator.Navigator>
+    </NavigationContainer>
   );
 }
